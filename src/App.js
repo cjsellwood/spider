@@ -23,10 +23,12 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Duplicate nested arrays immutably
   const duplicateNested = (array) => {
     return array.map((col) => [...col]);
   };
 
+  // Check if there are any sets complete and remove them
   const checkForSets = (cardCol) => {
     let index = -1;
     for (let i = 0; i < cardCol.length; i++) {
@@ -68,28 +70,12 @@ function App() {
       const receivingCol = e.over.data.current.receivingCol;
       const receivingCard = cards[receivingCol].at(-1);
 
-      // console.log(
-      //   "receiving col",
-      //   receivingCol,
-      //   "receiving card",
-      //   receivingCard
-      // );
-
       // Get data for the card being dragged
       const { prevCol, prevRow } = e.active.data.current;
       const addCard = cards[prevCol][prevRow];
 
-      // console.log(
-      //   "prev col",
-      //   prevCol,
-      //   "prev row",
-      //   prevRow,
-      //   "add card value",
-      //   addCard
-      // );
-      // console.log(cards[prevCol]);
-
-      if (receivingCard - 1 === addCard) {
+      // Only drop if receiving card is one higher or empty
+      if (receivingCard - 1 === addCard || !receivingCard) {
         const newCards = duplicateNested(cards);
 
         // Add new cards to receiving column
@@ -114,6 +100,7 @@ function App() {
     }
   };
 
+  // Add a card to each column from spares deck
   const addSpares = () => {
     const newCards = duplicateNested(cards);
     const newSpares = duplicateNested(spareCards);

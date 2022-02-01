@@ -28,6 +28,7 @@ const useCardGenerator = () => {
       }
       hiddenCards.push(inner);
     }
+    hiddenCards[0] = [];
 
     // Set top cards
     const topCards = [];
