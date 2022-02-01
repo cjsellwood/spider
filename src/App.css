@@ -10,11 +10,11 @@ body {
 }
 
 #columns > div {
-  padding: 8rem;
+  padding: 1rem;
   background-color: gray;
   color: white;
   margin: 1rem;
-  padding-bottom: 25rem;
+  padding-bottom: 10rem;
   user-select: none;
 }
 
