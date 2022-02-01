@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/spider_solitaire/static/css/main.2af791b0.css",
+    "main.js": "/spider_solitaire/static/js/main.b192fe3a.js",
+    "index.html": "/spider_solitaire/index.html",
+    "main.2af791b0.css.map": "/spider_solitaire/static/css/main.2af791b0.css.map",
+    "main.b192fe3a.js.map": "/spider_solitaire/static/js/main.b192fe3a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2af791b0.css",
+    "static/js/main.b192fe3a.js"
+  ]
+}
