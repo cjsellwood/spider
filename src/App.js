@@ -1,19 +1,36 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { DndContext } from "@dnd-kit/core";
+import { v4 as uuidv4 } from "uuid";
 import Droppable from "./Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
-import { v4 as uuidv4 } from "uuid";
+import HiddenColumn from "./components/HiddenColumn";
 
 function App() {
+  const [hiddenCards, setHiddenCards] = useState([
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+    [9, 8, 7, 6],
+  ]);
   const [cards, setCards] = useState([
     [6],
-    [2, 7, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+    [2, 7, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2],
     [9, 8, 7, 6],
     [9, 8, 7],
     [9, 8],
     [10, 2],
+    [],
+    [],
+    [],
+    [],
   ]);
   const [completed, setCompleted] = useState(0);
 
@@ -77,21 +94,20 @@ function App() {
   return (
     <div className="App">
       <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
-        <div id="columns">
+        <div id="columns-container">
           {cards.map((column, index) => {
             return (
-              <Droppable
-                key={"column" + index}
-                id={uuidv4()}
-                data={{ receivingCol: index }}
-              >
-                <CardColumn column={column} colNum={index} />
-              </Droppable>
+              <div key={"column" + index}>
+                <HiddenColumn hiddenCards={hiddenCards} index={index} />
+                <Droppable id={uuidv4()} data={{ receivingCol: index }}>
+                  <CardColumn column={column} colNum={index} />
+                </Droppable>
+              </div>
             );
           })}
         </div>
       </DndContext>
-      <h1>{completed}</h1>
+      <h1>{completed}/8</h1>
     </div>
   );
 }

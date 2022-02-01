@@ -1,32 +1,48 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 
-#columns {
+#columns-container {
   display: flex;
-}
-
-#columns > div {
-  width: 100px;
+  height: 80vh;
   padding: 1rem;
+  background-color: darkgreen;
+  justify-content: center;
+}
+
+#columns-container > div {
+  width: 7vw;
   background-color: gray;
   color: white;
-  margin: 1rem;
-  padding-bottom: 10rem;
+  margin: 0 1vw;
+  padding-bottom: 1vw;
   user-select: none;
 }
 
 .card {
+  font-size: 1.5vw;
+  padding: 0.5vw;
   background-color: rgb(57, 134, 235);
-  margin-bottom: -150px;
-  height: 180px;
-  width: 100px;
+  margin-bottom: -7.5vw;
+  height: 9.8vw;
+  width: 7vw;
   border: 2px solid red;
-  border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
+  border-radius: 0.5vw;
+  -webkit-border-radius: 0.5vw;
+  -moz-border-radius: 0.5vw;
+  -ms-border-radius: 0.5vw;
+  -o-border-radius: 0.5vw;
+}
+
+.hidden-card {
+  background-color: rgb(91, 24, 136);
+  border: 2px solid rgb(40, 180, 35);
+  border-radius: 0.5vw;
+  -webkit-border-radius: 0.5vw;
+  -moz-border-radius: 0.5vw;
+  -ms-border-radius: 0.5vw;
+  -o-border-radius: 0.5vw;
+  margin-bottom: -9vw;
+  height: 9.8vw;
+  width: 7vw;
 }
