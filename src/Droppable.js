@@ -8,7 +8,7 @@ const Droppable = (props) => {
   });
 
   const style = {
-    backgroundColor: isOver ? "green" : "gray",
+    backgroundColor: isOver ? "green" : "transparent",
   };
   return (
     <div ref={setNodeRef} style={style} className="droppable-column">

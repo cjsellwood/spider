@@ -12,7 +12,7 @@ function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
-  const [completed, setCompleted] = useState(0);
+  const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13, 13]);
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
@@ -43,7 +43,7 @@ function App() {
     }
 
     if (index !== -1) {
-      setCompleted(completed + 1);
+      setCompleted([...completed, 13]);
       return cardCol.slice(0, index);
     }
     return cardCol;
@@ -128,7 +128,11 @@ function App() {
         </div>
       </DndContext>
       <footer>
-        <h1 className="sets">{completed}/8</h1>
+        <div className="completed-container">
+          {completed.map((completed, i) => (
+            <div key={"completed" + i} className="completed-card"></div>
+          ))}
+        </div>
         <div onClick={() => addSpares()} className="spares-container">
           {spareCards.map((spare, i) => (
             <div key={"spare" + i} className="spare-card"></div>

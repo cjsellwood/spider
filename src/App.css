@@ -1,5 +1,6 @@
 body {
-  background-color: darkgreen;
+  background: rgb(11,145,58);
+  background: radial-gradient(circle, rgba(11,145,58,1) 0%, rgba(6,84,34,1) 87%);
 }
 
 #columns-container {
@@ -7,13 +8,13 @@ body {
   height: 80vh;
   padding: 1rem;
   justify-content: center;
-  background-color: rgb(3, 128, 3);
+  /* background-color: rgb(3, 128, 3); */
 }
 
 #columns-container > div {
   width: 7vw;
   color: white;
-  margin: 0 1vw;
+  margin: 0 0.5vw;
 }
 
 .droppable-column {
@@ -23,11 +24,11 @@ body {
 .card {
   font-size: 1.5vw;
   padding: 0.5vw;
-  background-color: rgb(37, 113, 212);
-  margin-bottom: -7.5vw;
-  height: 9.8vw;
+  /* background-color: rgb(37, 113, 212); */
+  margin-bottom: -8.2vw;
+  height: 10.4vw;
   width: 7vw;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
@@ -35,6 +36,10 @@ body {
   -o-border-radius: 0.5vw;
   user-select: none;
   cursor: pointer;
+  background-image: url(./images/spades2.svg);
+  background-size: cover;
+
+  color: transparent
 }
 
 .hidden-card {
@@ -45,16 +50,16 @@ body {
   -moz-border-radius: 0.5vw;
   -ms-border-radius: 0.5vw;
   -o-border-radius: 0.5vw;
-  margin-bottom: -9vw;
+  margin-bottom: -9.2vw;
   height: 9.8vw;
   width: 7vw;
 }
 
 footer {
   display: flex;
-  padding: 1vw 3vw;
+  padding: 1vw 0vw;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .spares-container {
@@ -78,6 +83,22 @@ footer {
   -o-border-radius: 0.5vw;
 }
 
-.sets {
-  font-size: 3rem;
+.completed-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 6vw;
+  cursor: pointer;
+}
+
+.completed-card {
+  height: 9.8vw;
+  width: 7vw;
+  margin-left: -6vw;
+  border: 2px solid red;
+  background-color: rgb(97, 212, 241);
+  border-radius: 0.5vw;
+  -webkit-border-radius: 0.5vw;
+  -moz-border-radius: 0.5vw;
+  -ms-border-radius: 0.5vw;
+  -o-border-radius: 0.5vw;
 }
