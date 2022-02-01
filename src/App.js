@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { DndContext } from "@dnd-kit/core";
+import Droppable from "./Droppable";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import CardColumn from "./components/CardColumn";
 
 function App() {
+  const [cards, setCards] = useState([
+    [9, 8, 7, 6, 5],
+    [9, 8, 7, 6],
+    [9, 8, 7],
+  ]);
+
+  const handleDragEnd = (e) => {
+    console.log(e);
+    const { over } = e;
+    if (over) {
+    } else {
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
+        <div id="columns">
+          {cards.map((column, index) => {
+            return (
+              <Droppable key={"column" + index} id={"column" + index}>
+                <CardColumn column={column} />
+              </Droppable>
+            );
+          })}
+        </div>
+      </DndContext>
     </div>
   );
 }
