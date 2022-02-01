@@ -2,7 +2,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 #columns {
@@ -21,7 +20,7 @@ body {
 
 .card {
   background-color: rgb(57, 134, 235);
-  margin-top: -150px;
+  margin-bottom: -150px;
   height: 180px;
   width: 100px;
   border: 2px solid red;
