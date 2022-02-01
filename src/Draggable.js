@@ -4,7 +4,8 @@ import React from "react";
 const Draggable = (props) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id,
-    disabled: props.disabled
+    disabled: props.disabled,
+    data: props.data
   });
 
   const style = transform

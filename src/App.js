@@ -4,14 +4,16 @@ import { DndContext } from "@dnd-kit/core";
 import Droppable from "./Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [cards, setCards] = useState([
-    [9, 8, 7, 6, 5],
+    [6],
+    [13, 12, 11, 10, 9, 8, 7, 6, 5],
     [9, 8, 7, 6],
     [9, 8, 7],
     [9, 8],
-    [9]
+    [10],
   ]);
 
   const duplicateCards = () => {
@@ -21,25 +23,27 @@ function App() {
   const handleDragEnd = (e) => {
     const { over } = e;
     if (over) {
-      const droppedCol = e.over.id;
-      const receivingCard = cards[droppedCol].at(-1);
-      console.log("dropped", e.over.id, receivingCard);
-      const [addCol, addRow] = e.active.id.split(" ");
-      const addCard = cards[addCol][addRow];
-      console.log("dragged", addCol, addRow);
+      const receivingCol = e.over.data.current.receivingCol;
+      const receivingCard = cards[receivingCol].at(-1);
+
+      const { prevCol, prevRow } = e.active.data.current;
+      const addCard = cards[prevCol][prevRow];
+
       if (receivingCard - 1 === addCard) {
         const newCards = duplicateCards();
         // Add new cards to receiving column
-        newCards[droppedCol] = [
-          ...newCards[droppedCol],
-          ...newCards[addCol].slice(addRow),
+        newCards[receivingCol] = [
+          ...newCards[receivingCol],
+          ...newCards[prevCol].slice(prevRow),
         ];
 
         // Remove added card from previous column
-        newCards[addCol] = [...newCards[addCol].slice(0, addRow)];
+        newCards[prevCol] = newCards[prevCol].slice(0, prevRow);
+
         setCards(newCards);
       }
     } else {
+      console.log("OUTSIDE");
     }
   };
 
@@ -49,7 +53,11 @@ function App() {
         <div id="columns">
           {cards.map((column, index) => {
             return (
-              <Droppable key={"column" + index} id={index}>
+              <Droppable
+                key={"column" + index}
+                id={uuidv4()}
+                data={{ receivingCol: index }}
+              >
                 <CardColumn column={column} colNum={index} />
               </Droppable>
             );

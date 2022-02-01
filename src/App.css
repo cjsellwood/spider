@@ -10,6 +10,7 @@ body {
 }
 
 #columns > div {
+  width: 100px;
   padding: 1rem;
   background-color: gray;
   color: white;

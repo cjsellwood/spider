@@ -1,4 +1,5 @@
 import Draggable from "../Draggable";
+import { v4 as uuidv4 } from "uuid";
 
 const shouldItDrag = (cardColumn) => {
   let isCorrectOrder = true;
@@ -20,7 +21,12 @@ const CardContainer = ({ cardColumn, cardRow, colNum }) => {
   }
   return (
     <Draggable
-      id={`${colNum} ${cardRow}`}
+      id={uuidv4()}
+      data={{
+        prevCol: colNum,
+        prevRow: cardRow,
+      }}
+      // id={`${colNum} ${cardRow}`}
       disabled={!shouldItDrag(cardColumn)}
     >
       <div className="card-container">
