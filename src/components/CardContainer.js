@@ -7,7 +7,7 @@ const shouldItDrag = (cardColumn) => {
   for (let i = Math.max(...cardColumn); i >= Math.min(...cardColumn); i--) {
     correctOrder.push(i);
   }
-  for (let i = 0; i < correctOrder.length; i++) {
+  for (let i = 0; i < cardColumn.length; i++) {
     if (correctOrder[i] !== cardColumn[i]) {
       isCorrectOrder = false;
     }

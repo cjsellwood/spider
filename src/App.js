@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { DndContext } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
@@ -6,36 +6,25 @@ import Droppable from "./Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
+import useCardGenerator from "./hooks/useCardGenerator";
 
 function App() {
-  const [hiddenCards, setHiddenCards] = useState([
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-    [9, 8, 7, 6],
-  ]);
-  const [cards, setCards] = useState([
-    [6],
-    [2, 7, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2],
-    [9, 8, 7, 6],
-    [9, 8, 7],
-    [9, 8],
-    [10, 2],
-    [],
-    [],
-    [],
-    [],
-  ]);
+  const [hiddenCards, setHiddenCards] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [spareCards, setSpareCards] = useState([]);
   const [completed, setCompleted] = useState(0);
 
-  const duplicateCards = () => {
-    return cards.map((col) => [...col]);
+  const [generateCards] = useCardGenerator();
+  useEffect(() => {
+    const { hiddenCards, topCards, spareCards } = generateCards();
+    setHiddenCards(hiddenCards);
+    setCards(topCards);
+    setSpareCards(spareCards);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const duplicateNested = (array) => {
+    return array.map((col) => [...col]);
   };
 
   const checkForSets = (cardCol) => {
@@ -50,12 +39,26 @@ function App() {
         }
       }
     }
-    console.log(index);
+
     if (index !== -1) {
       setCompleted(completed + 1);
       return cardCol.slice(0, index);
     }
     return cardCol;
+  };
+
+  const checkForEmpty = (cardsArray) => {
+    const newCards = duplicateNested(cardsArray);
+    for (let i = 0; i < newCards.length; i++) {
+      // Check if column empty and there are still hidden cards
+      if (!newCards[i].length && hiddenCards[i].length) {
+        newCards[i].push(hiddenCards[i].at(-1));
+        const newHidden = duplicateNested(hiddenCards);
+        newHidden[i] = newHidden[i].slice(0, newHidden[i].length - 1);
+        setHiddenCards(newHidden);
+      }
+    }
+    return newCards;
   };
 
   const handleDragEnd = (e) => {
@@ -65,12 +68,29 @@ function App() {
       const receivingCol = e.over.data.current.receivingCol;
       const receivingCard = cards[receivingCol].at(-1);
 
+      // console.log(
+      //   "receiving col",
+      //   receivingCol,
+      //   "receiving card",
+      //   receivingCard
+      // );
+
       // Get data for the card being dragged
       const { prevCol, prevRow } = e.active.data.current;
       const addCard = cards[prevCol][prevRow];
 
+      // console.log(
+      //   "prev col",
+      //   prevCol,
+      //   "prev row",
+      //   prevRow,
+      //   "add card value",
+      //   addCard
+      // );
+      // console.log(cards[prevCol]);
+
       if (receivingCard - 1 === addCard) {
-        const newCards = duplicateCards();
+        const newCards = duplicateNested(cards);
 
         // Add new cards to receiving column
         newCards[receivingCol] = [
@@ -84,11 +104,24 @@ function App() {
         // Check for completed sets and remove any found
         newCards[receivingCol] = checkForSets(newCards[receivingCol]);
 
-        setCards(newCards);
+        // Check for empty column and flip hidden card
+        const emptiedCards = checkForEmpty(newCards);
+
+        setCards(emptiedCards);
       }
     } else {
       console.log("OUTSIDE");
     }
+  };
+
+  const addSpares = () => {
+    const newCards = duplicateNested(cards);
+    const newSpares = duplicateNested(spareCards);
+    for (let i = 0; i < newCards.length; i++) {
+      newCards[i].push(newSpares[0][i]);
+    }
+    setSpareCards(newSpares.slice(1));
+    setCards(newCards);
   };
 
   return (
@@ -107,7 +140,14 @@ function App() {
           })}
         </div>
       </DndContext>
-      <h1>{completed}/8</h1>
+      <footer>
+        <h1 className="sets">{completed}/8</h1>
+        <div onClick={() => addSpares()} className="spares-container">
+          {spareCards.map((spare, i) => (
+            <div key={"spare" + i} className="spare-card"></div>
+          ))}
+        </div>
+      </footer>
     </div>
   );
 }

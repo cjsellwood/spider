@@ -11,7 +11,7 @@ const Droppable = (props) => {
     backgroundColor: isOver ? "green" : "gray",
   };
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className="droppable-column">
       {props.children}
     </div>
   );
