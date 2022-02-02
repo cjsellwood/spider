@@ -137,12 +137,20 @@ function App() {
       <footer>
         <div className="completed-container">
           {completed.map((completed, i) => (
-            <div key={"completed" + i} className="completed-card card13"></div>
+            <div
+              key={"completed" + i}
+              className="completed-card card13"
+              style={{ zIndex: `${10 - i}` }}
+            ></div>
           ))}
         </div>
         <div onClick={() => addSpares()} className="spares-container">
           {spareCards.map((spare, i) => (
-            <div key={"spare" + i} className="spare-card"></div>
+            <div
+              key={"spare" + i}
+              className="spare-card"
+              style={{ zIndex: `${10 - i}` }}
+            ></div>
           ))}
         </div>
       </footer>

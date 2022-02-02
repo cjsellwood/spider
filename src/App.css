@@ -133,16 +133,16 @@ footer {
 
 .spares-container {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: flex-end;
-  padding-left: 6vw;
   cursor: pointer;
+  width: 18vw;
+  padding-right: 6vw;
 }
 
 .spare-card {
   height: 10.4vw;
   width: 7vw;
-  margin-left: -6vw;
+  margin-right: -6vw;
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
@@ -155,8 +155,10 @@ footer {
 .completed-container {
   display: flex;
   justify-content: flex-end;
-  padding-left: 6vw;
+  flex-direction: row-reverse;
   cursor: pointer;
+  width: 18vw;
+  padding-left: 6vw;
 }
 
 .completed-card {
