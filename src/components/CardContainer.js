@@ -15,10 +15,11 @@ const shouldItDrag = (cardColumn) => {
   return isCorrectOrder;
 };
 
-const CardContainer = ({ cardColumn, cardRow, colNum }) => {
+const CardContainer = ({ cardColumn, cardRow, colNum , colLength}) => {
   if (!cardColumn[0]) {
     return null;
   }
+  console.log(colLength)
   return (
     <Draggable
       id={uuidv4()}
@@ -30,11 +31,18 @@ const CardContainer = ({ cardColumn, cardRow, colNum }) => {
       disabled={!shouldItDrag(cardColumn)}
     >
       <div className="card-container">
-        <div className="card">{cardColumn[0]}</div>
+        <div
+          className={`card card${cardColumn[0]} ${
+            colLength > 10 ? "squeezed" : ""
+          }`}
+        >
+          {cardColumn[0]}
+        </div>
         <CardContainer
           cardColumn={cardColumn.slice(1)}
           cardRow={cardRow + 1}
           colNum={colNum}
+          colLength={colLength}
         ></CardContainer>
       </div>
     </Draggable>

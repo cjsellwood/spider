@@ -130,7 +130,7 @@ function App() {
       <footer>
         <div className="completed-container">
           {completed.map((completed, i) => (
-            <div key={"completed" + i} className="completed-card"></div>
+            <div key={"completed" + i} className="completed-card card13"></div>
           ))}
         </div>
         <div onClick={() => addSpares()} className="spares-container">

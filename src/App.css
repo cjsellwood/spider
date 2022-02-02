@@ -1,6 +1,10 @@
 body {
-  background: rgb(11,145,58);
-  background: radial-gradient(circle, rgba(11,145,58,1) 0%, rgba(6,84,34,1) 87%);
+  background: rgb(11, 145, 58);
+  background: radial-gradient(
+    circle,
+    rgba(11, 145, 58, 1) 0%,
+    rgba(6, 84, 34, 1) 87%
+  );
 }
 
 #columns-container {
@@ -8,7 +12,6 @@ body {
   height: 80vh;
   padding: 1rem;
   justify-content: center;
-  /* background-color: rgb(3, 128, 3); */
 }
 
 #columns-container > div {
@@ -24,11 +27,9 @@ body {
 .card {
   font-size: 1.5vw;
   padding: 0.5vw;
-  /* background-color: rgb(37, 113, 212); */
   margin-bottom: -8.2vw;
   height: 10.4vw;
   width: 7vw;
-  /* border: 2px solid red; */
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
@@ -36,23 +37,77 @@ body {
   -o-border-radius: 0.5vw;
   user-select: none;
   cursor: pointer;
-  background-image: url(./images/spades2.svg);
+  color: transparent;
   background-size: cover;
+}
 
-  color: transparent
+.squeezed {
+  margin-bottom: -8.7vw;
+}
+
+.card1 {
+  background-image: url(./images/spades1.svg);
+}
+
+.card2 {
+  background-image: url(./images/spades2.svg);
+}
+
+.card3 {
+  background-image: url(./images/spades3.svg);
+}
+
+.card4 {
+  background-image: url(./images/spades4.svg);
+}
+
+.card5 {
+  background-image: url(./images/spades5.svg);
+}
+
+.card6 {
+  background-image: url(./images/spades6.svg);
+}
+
+.card7 {
+  background-image: url(./images/spades7.svg);
+}
+
+.card8 {
+  background-image: url(./images/spades8.svg);
+}
+
+.card9 {
+  background-image: url(./images/spades9.svg);
+}
+
+.card10 {
+  background-image: url(./images/spades10.svg);
+}
+
+.card11 {
+  background-image: url(./images/spades11.svg);
+}
+
+.card12 {
+  background-image: url(./images/spades12.svg);
+}
+
+.card13 {
+  background-image: url(./images/spades13.svg);
 }
 
 .hidden-card {
-  background-color: rgb(91, 24, 136);
-  border: 2px solid rgb(40, 180, 35);
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
   -ms-border-radius: 0.5vw;
   -o-border-radius: 0.5vw;
-  margin-bottom: -9.2vw;
-  height: 9.8vw;
+  margin-bottom: -9.8vw;
+  height: 10.4vw;
   width: 7vw;
+  background-image: url(./images/back.svg);
+  background-size: cover;
 }
 
 footer {
@@ -71,16 +126,16 @@ footer {
 }
 
 .spare-card {
-  height: 9.8vw;
+  height: 10.4vw;
   width: 7vw;
   margin-left: -6vw;
-  border: 2px solid red;
-  background-color: rgb(97, 212, 241);
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
   -ms-border-radius: 0.5vw;
   -o-border-radius: 0.5vw;
+  background-image: url(./images/back.svg);
+  background-size: cover;
 }
 
 .completed-container {
@@ -91,14 +146,13 @@ footer {
 }
 
 .completed-card {
-  height: 9.8vw;
+  height: 10.4vw;
   width: 7vw;
-  margin-left: -6vw;
-  border: 2px solid red;
-  background-color: rgb(97, 212, 241);
+  margin-left: -5.5vw;
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
   -moz-border-radius: 0.5vw;
   -ms-border-radius: 0.5vw;
   -o-border-radius: 0.5vw;
+  background-size: cover;
 }
