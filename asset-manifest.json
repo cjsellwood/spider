@@ -1,13 +1,28 @@
 {
   "files": {
-    "main.css": "/spider_solitaire/static/css/main.2af791b0.css",
-    "main.js": "/spider_solitaire/static/js/main.b192fe3a.js",
+    "main.css": "/spider_solitaire/static/css/main.caed1e7f.css",
+    "main.js": "/spider_solitaire/static/js/main.3db3b235.js",
+    "static/media/spades13.svg": "/spider_solitaire/static/media/spades13.81a8269332f6fd3781ab.svg",
+    "static/media/spades12.svg": "/spider_solitaire/static/media/spades12.e65b8dac8f927e3ba20b.svg",
+    "static/media/spades11.svg": "/spider_solitaire/static/media/spades11.0d63e3249ce8703ad71f.svg",
+    "service-worker.js": "/spider_solitaire/service-worker.js",
+    "static/media/spades10.svg": "/spider_solitaire/static/media/spades10.8e19102697c91cbc94bb.svg",
+    "static/media/spades9.svg": "/spider_solitaire/static/media/spades9.9fa63e334ad6ff6767a7.svg",
+    "static/media/spades8.svg": "/spider_solitaire/static/media/spades8.2789afea43b36d3196af.svg",
+    "static/media/spades7.svg": "/spider_solitaire/static/media/spades7.c64ed8ba2116df46c8f6.svg",
+    "static/media/spades6.svg": "/spider_solitaire/static/media/spades6.77ff5faceb54855a81a3.svg",
+    "static/media/spades5.svg": "/spider_solitaire/static/media/spades5.09e1eed9c3fa1edee903.svg",
+    "static/media/spades4.svg": "/spider_solitaire/static/media/spades4.8a69f935bfab97ddf2d4.svg",
+    "static/media/spades3.svg": "/spider_solitaire/static/media/spades3.52e41cc83729339dcaee.svg",
+    "static/media/spades2.svg": "/spider_solitaire/static/media/spades2.d5036e870c58536d812b.svg",
+    "static/media/spades1.svg": "/spider_solitaire/static/media/spades1.583dd3dafdfcf61fdc36.svg",
     "index.html": "/spider_solitaire/index.html",
-    "main.2af791b0.css.map": "/spider_solitaire/static/css/main.2af791b0.css.map",
-    "main.b192fe3a.js.map": "/spider_solitaire/static/js/main.b192fe3a.js.map"
+    "static/media/back.svg": "/spider_solitaire/static/media/back.af8934251fed9f9a9c6d.svg",
+    "main.caed1e7f.css.map": "/spider_solitaire/static/css/main.caed1e7f.css.map",
+    "main.3db3b235.js.map": "/spider_solitaire/static/js/main.3db3b235.js.map"
   },
   "entrypoints": [
-    "static/css/main.2af791b0.css",
-    "static/js/main.b192fe3a.js"
+    "static/css/main.caed1e7f.css",
+    "static/js/main.3db3b235.js"
   ]
 }
