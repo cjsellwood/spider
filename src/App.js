@@ -102,6 +102,13 @@ function App() {
 
   // Add a card to each column from spares deck
   const addSpares = () => {
+    // If a column has no cards don't add spares
+    for (let col of cards) {
+      if (!col.length) {
+        return;
+      }
+    }
+
     const newCards = duplicateNested(cards);
     const newSpares = duplicateNested(spareCards);
     for (let i = 0; i < newCards.length; i++) {

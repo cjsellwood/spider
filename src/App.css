@@ -97,6 +97,18 @@ body {
   background-image: url(./images/spades13.svg);
 }
 
+.card-base {
+  border: 2px solid rgba(255, 255, 255, 0.603);
+  width: 7vw;
+  height: 10.4vw;
+  margin-bottom: -10.4vw;
+  border-radius: 0.5vw;
+  -webkit-border-radius: 0.5vw;
+  -moz-border-radius: 0.5vw;
+  -ms-border-radius: 0.5vw;
+  -o-border-radius: 0.5vw;
+}
+
 .hidden-card {
   border-radius: 0.5vw;
   -webkit-border-radius: 0.5vw;
@@ -112,9 +124,11 @@ body {
 
 footer {
   display: flex;
+  height: 20vh;
   padding: 1vw 0vw;
   align-items: center;
   justify-content: space-around;
+  background-color: rgba(6, 84, 35, 0.692);
 }
 
 .spares-container {
