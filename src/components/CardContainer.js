@@ -19,7 +19,6 @@ const CardContainer = ({ cardColumn, cardRow, colNum , colLength}) => {
   if (!cardColumn[0]) {
     return null;
   }
-  console.log(colLength)
   return (
     <Draggable
       id={uuidv4()}

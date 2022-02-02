@@ -1,7 +1,7 @@
 {
-  "name": "drag_test",
+  "name": "spider",
   "version": "0.1.0",
-  "homepage": "https://cjsellwood.github.io/spider_solitaire",
+  "homepage": "https://cjsellwood.github.io/spider",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^5.0.1",
