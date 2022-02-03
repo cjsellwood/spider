@@ -7,20 +7,41 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
 import useCardGenerator from "./hooks/useCardGenerator";
+import releaseMP3 from "./sounds/release.mp3";
+import pickupMP3 from "./sounds/pickup.mp3";
+import illegalMP3 from "./sounds/illegal.mp3";
+import setCompleteMP3 from "./sounds/setComplete.mp3";
+import fireworkMP3 from "./sounds/firework.mp3";
+import dealMP3 from "./sounds/deal.mp3";
 
 function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
-  const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13, 13]);
+  const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13]);
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
+    topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [sounds, setSounds] = useState({});
+
+  // Load sounds
+  useEffect(() => {
+    setSounds({
+      pickup: new Audio(pickupMP3),
+      release: new Audio(releaseMP3),
+      illegal: new Audio(illegalMP3),
+      setComplete: new Audio(setCompleteMP3),
+      firework: new Audio(fireworkMP3),
+      deal: new Audio(dealMP3)
+    })
   }, []);
 
   // Duplicate nested arrays immutably
@@ -42,7 +63,16 @@ function App() {
       }
     }
 
+    // If a set complete remove it and check if game won
     if (index !== -1) {
+      sounds.setComplete.play();
+      if (completed.length + 1 === 8) {
+        console.log("Winner");
+        setInterval(() => {
+          sounds.firework.play()
+        }, 1000);
+      } else {
+      }
       setCompleted([...completed, 13]);
       return cardCol.slice(0, index);
     }
@@ -63,6 +93,10 @@ function App() {
     return newCards;
   };
 
+  const handleDragStart = () => {
+    sounds.pickup.play();
+  };
+
   const handleDragEnd = (e) => {
     const { over } = e;
     if (over) {
@@ -76,6 +110,8 @@ function App() {
 
       // Only drop if receiving card is one higher or empty
       if (receivingCard - 1 === addCard || !receivingCard) {
+        sounds.release.play();
+
         const newCards = duplicateNested(cards);
 
         // Add new cards to receiving column
@@ -94,9 +130,15 @@ function App() {
         const emptiedCards = checkForEmpty(newCards);
 
         setCards(emptiedCards);
+      } else if (prevCol !== receivingCol) {
+        // If dropping on an illegal position and not starting position
+        sounds.illegal.play();
+      } else {
+        // Plays on dropping on own position
+        sounds.release.play();
       }
     } else {
-      console.log("OUTSIDE");
+      sounds.release.play();
     }
   };
 
@@ -105,9 +147,12 @@ function App() {
     // If a column has no cards don't add spares
     for (let col of cards) {
       if (!col.length) {
+        sounds.illegal.play();
         return;
       }
     }
+
+    sounds.deal.play();
 
     const newCards = duplicateNested(cards);
     const newSpares = duplicateNested(spareCards);
@@ -120,7 +165,11 @@ function App() {
 
   return (
     <div className="App">
-      <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
+      <DndContext
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+        modifiers={[restrictToWindowEdges]}
+      >
         <div id="columns-container">
           {cards.map((column, index) => {
             return (
