@@ -6,12 +6,12 @@ import Droppable from "./Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
+import FinishedGame from "./components/FinishedGame";
 import useCardGenerator from "./hooks/useCardGenerator";
 import releaseMP3 from "./sounds/release.mp3";
 import pickupMP3 from "./sounds/pickup.mp3";
 import illegalMP3 from "./sounds/illegal.mp3";
 import setCompleteMP3 from "./sounds/setComplete.mp3";
-import fireworkMP3 from "./sounds/firework.mp3";
 import dealMP3 from "./sounds/deal.mp3";
 
 function App() {
@@ -19,11 +19,13 @@ function App() {
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
   const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13]);
+  const [showFireworks, setShowFireworks] = useState(false);
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
     topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+    hiddenCards[0] = [];
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
@@ -39,9 +41,8 @@ function App() {
       release: new Audio(releaseMP3),
       illegal: new Audio(illegalMP3),
       setComplete: new Audio(setCompleteMP3),
-      firework: new Audio(fireworkMP3),
-      deal: new Audio(dealMP3)
-    })
+      deal: new Audio(dealMP3),
+    });
   }, []);
 
   // Duplicate nested arrays immutably
@@ -67,10 +68,7 @@ function App() {
     if (index !== -1) {
       sounds.setComplete.play();
       if (completed.length + 1 === 8) {
-        console.log("Winner");
-        setInterval(() => {
-          sounds.firework.play()
-        }, 1000);
+        setShowFireworks(true);
       } else {
       }
       setCompleted([...completed, 13]);
@@ -159,6 +157,12 @@ function App() {
     for (let i = 0; i < newCards.length; i++) {
       newCards[i].push(newSpares[0][i]);
     }
+
+    // Check if any sets formed
+    for (let i = 0; i < newCards.length; i++) {
+      newCards[i] = checkForSets(newCards[i]);
+    }
+    
     setSpareCards(newSpares.slice(1));
     setCards(newCards);
   };
@@ -203,6 +207,7 @@ function App() {
           ))}
         </div>
       </footer>
+      {showFireworks && <FinishedGame setShowFireworks={setShowFireworks} />}
     </div>
   );
 }
