@@ -5,6 +5,7 @@ body {
     rgba(11, 145, 58, 1) 0%,
     rgba(6, 84, 34, 1) 87%
   );
+  user-select: none;
 }
 
 #columns-container {
@@ -35,7 +36,6 @@ body {
   -moz-border-radius: 0.5vw;
   -ms-border-radius: 0.5vw;
   -o-border-radius: 0.5vw;
-  user-select: none;
   cursor: pointer;
   color: transparent;
   background-size: cover;
@@ -182,7 +182,6 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
 }
 
 .end-screen > div {
@@ -200,6 +199,18 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 1vw;
+  animation: 0.5s fadeIn;
+  -webkit-animation: 0.5s fadeIn;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .end-screen h1 {

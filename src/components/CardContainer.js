@@ -15,10 +15,11 @@ const shouldItDrag = (cardColumn) => {
   return isCorrectOrder;
 };
 
-const CardContainer = ({ cardColumn, cardRow, colNum , colLength}) => {
+const CardContainer = ({ cardColumn, cardRow, colNum, colLength }) => {
   if (!cardColumn[0]) {
     return null;
   }
+
   return (
     <Draggable
       id={uuidv4()}

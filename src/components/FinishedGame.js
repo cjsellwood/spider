@@ -11,8 +11,8 @@ const FinishedGame = ({ setShowFireworks, setShowEnd }) => {
       max: 345,
     },
     delay: {
-      min: 10,
-      max: 10,
+      min: 20,
+      max: 20,
     },
     rocketsPoint: 50,
     speed: 10,
