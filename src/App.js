@@ -7,6 +7,7 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
 import FinishedGame from "./components/FinishedGame";
+import EndScreen from "./components/EndScreen";
 import useCardGenerator from "./hooks/useCardGenerator";
 import releaseMP3 from "./sounds/release.mp3";
 import pickupMP3 from "./sounds/pickup.mp3";
@@ -20,12 +21,20 @@ function App() {
   const [spareCards, setSpareCards] = useState([]);
   const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13]);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [showEnd, setShowEnd] = useState(false);
+  const [score, setScore] = useState(500);
+  const [moves, setMoves] = useState(0);
+  const [gamesPlayed, setGamesPlayed] = useState(0);
+  const [gamesWon, setGamesWon] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [highScoreDate, setHighScoreDate] = useState("");
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
     topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     hiddenCards[0] = [];
+    spareCards[0][0] = 1;
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
@@ -44,6 +53,46 @@ function App() {
       deal: new Audio(dealMP3),
     });
   }, []);
+
+  // Load any stored statistics
+  useEffect(() => {
+    const storedPlayed = localStorage.getItem("played");
+    if (storedPlayed) {
+      setGamesPlayed(Number(storedPlayed));
+    }
+    const storedWon = localStorage.getItem("won");
+    if (storedWon) {
+      setGamesWon(Number(storedWon));
+    }
+    const storedHighScore = localStorage.getItem("highScore");
+    if (storedHighScore) {
+      setHighScore(Number(storedHighScore));
+    }
+    const storedHighScoreDate = localStorage.getItem("highScoreDate");
+    if (storedHighScoreDate) {
+      setHighScoreDate(storedHighScoreDate);
+    }
+  }, []);
+
+  const gameWon = () => {
+    setShowFireworks(true);
+
+    // Set high score if greater than stored score
+    if (score + 100 > highScore) {
+      setHighScore(score + 100);
+      localStorage.setItem("highScore", score + 100);
+      localStorage.setItem(
+        "highScoreDate",
+        new Date(Date.now()).toLocaleDateString()
+      );
+      setHighScoreDate(new Date(Date.now()).toLocaleDateString());
+    }
+
+    setGamesPlayed(gamesPlayed + 1);
+    localStorage.setItem("played", gamesPlayed + 1);
+    setGamesWon(gamesWon + 1);
+    localStorage.setItem("won", gamesWon + 1);
+  };
 
   // Duplicate nested arrays immutably
   const duplicateNested = (array) => {
@@ -66,10 +115,11 @@ function App() {
 
     // If a set complete remove it and check if game won
     if (index !== -1) {
+      setScore(score + 100);
       sounds.setComplete.play();
+      // Game won
       if (completed.length + 1 === 8) {
-        setShowFireworks(true);
-      } else {
+        gameWon();
       }
       setCompleted([...completed, 13]);
       return cardCol.slice(0, index);
@@ -109,6 +159,8 @@ function App() {
       // Only drop if receiving card is one higher or empty
       if (receivingCard - 1 === addCard || !receivingCard) {
         sounds.release.play();
+        setScore(score - 1);
+        setMoves(moves + 1);
 
         const newCards = duplicateNested(cards);
 
@@ -151,7 +203,9 @@ function App() {
     }
 
     sounds.deal.play();
+    // console.log(sounds.deal.duration);
 
+    // setTimeout(() => {
     const newCards = duplicateNested(cards);
     const newSpares = duplicateNested(spareCards);
     for (let i = 0; i < newCards.length; i++) {
@@ -162,9 +216,26 @@ function App() {
     for (let i = 0; i < newCards.length; i++) {
       newCards[i] = checkForSets(newCards[i]);
     }
-    
+
     setSpareCards(newSpares.slice(1));
     setCards(newCards);
+    // }, 1150);
+  };
+
+  const startNewGame = () => {
+    const { hiddenCards, topCards, spareCards } = generateCards();
+    // Add to games played if game was not won
+    if (!showEnd && moves > 10) {
+      setGamesPlayed(gamesPlayed + 1);
+      localStorage.setItem("played", gamesPlayed + 1);
+    }
+    setShowEnd(false);
+    setHiddenCards(hiddenCards);
+    setCards(topCards);
+    setSpareCards(spareCards);
+    setCompleted([]);
+    setScore(500);
+    setMoves(0);
   };
 
   return (
@@ -197,6 +268,27 @@ function App() {
             ></div>
           ))}
         </div>
+        <div
+          className={`info-container ${(showEnd || showFireworks) && "hide"}`}
+        >
+          <p>Score: {score}</p>
+          <button title="New Game" onClick={() => startNewGame()}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+              <path
+                fillRule="evenodd"
+                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+              />
+            </svg>
+          </button>
+          <p>Moves: {moves}</p>
+        </div>
         <div onClick={() => addSpares()} className="spares-container">
           {spareCards.map((spare, i) => (
             <div
@@ -207,7 +299,23 @@ function App() {
           ))}
         </div>
       </footer>
-      {showFireworks && <FinishedGame setShowFireworks={setShowFireworks} />}
+      {showFireworks && (
+        <FinishedGame
+          setShowFireworks={setShowFireworks}
+          setShowEnd={setShowEnd}
+        />
+      )}
+      {showEnd && (
+        <EndScreen
+          score={score}
+          moves={moves}
+          startNewGame={startNewGame}
+          gamesPlayed={gamesPlayed}
+          gamesWon={gamesWon}
+          highScore={highScore}
+          highScoreDate={highScoreDate}
+        />
+      )}
     </div>
   );
 }

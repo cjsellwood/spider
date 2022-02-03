@@ -4,7 +4,7 @@ import firework1MP3 from "../sounds/firework1.mp3";
 import firework2MP3 from "../sounds/firework2.mp3";
 import firework3MP3 from "../sounds/firework3.mp3";
 
-const FinishedGame = ({setShowFireworks}) => {
+const FinishedGame = ({ setShowFireworks, setShowEnd }) => {
   const options = {
     hue: {
       min: 0,
@@ -48,9 +48,15 @@ const FinishedGame = ({setShowFireworks}) => {
     height: "100%",
     position: "fixed",
     background: "transparent",
+    zIndex: 20,
   };
   return (
-    <div onClick={() => setShowFireworks(false)}>
+    <div
+      onClick={() => {
+        setShowFireworks(false);
+        setShowEnd(true);
+      }}
+    >
       <Fireworks options={options} style={style} />
     </div>
   );
