@@ -120,22 +120,24 @@ function App() {
         gameWon();
       }
       setCompleted([...completed, 13]);
+
       return cardCol.slice(0, index);
     }
+
     return cardCol;
   };
 
   const checkForEmpty = (cardsArray) => {
     const newCards = duplicateNested(cardsArray);
+    const newHidden = duplicateNested(hiddenCards);
     for (let i = 0; i < newCards.length; i++) {
       // Check if column empty and there are still hidden cards
-      if (!newCards[i].length && hiddenCards[i].length) {
-        newCards[i].push(hiddenCards[i].at(-1));
-        const newHidden = duplicateNested(hiddenCards);
+      if (!newCards[i].length && newHidden[i].length) {
+        newCards[i].push(newHidden[i].at(-1));
         newHidden[i] = newHidden[i].slice(0, newHidden[i].length - 1);
-        setHiddenCards(newHidden);
       }
     }
+    setHiddenCards(newHidden);
     return newCards;
   };
 

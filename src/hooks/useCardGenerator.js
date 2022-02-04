@@ -9,14 +9,13 @@ const shuffleArray = (array) => {
 };
 
 const useCardGenerator = () => {
-  const cards = [];
-  for (let i = 0; i < 8; i++) {
-    for (let j = 1; j <= 13; j++) {
-      cards.push(j);
-    }
-  }
-
   const generateCards = () => {
+    const cards = [];
+    for (let i = 0; i < 8; i++) {
+      for (let j = 1; j <= 13; j++) {
+        cards.push(j);
+      }
+    }
     shuffleArray(cards);
 
     // Set 40 hidden cards
