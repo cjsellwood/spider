@@ -1,0 +1,73 @@
+.end-screen {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-screen > div {
+  background-color: rgba(6, 84, 35, 0.623);
+  color: white;
+  padding: min(1vw, 1vh);
+  border: min(0.3vw, 0.5vh) solid rgba(255, 255, 255, 0.781);
+  border-radius: min(1vw, 1vh);
+  -webkit-border-radius: min(1vw, 1vh);
+  -moz-border-radius: min(1vw, 1vh);
+  -ms-border-radius: min(1vw, 1vh);
+  -o-border-radius: min(1vw, 1vh);
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: min(1vw, 2.5vh);
+  animation: 0.5s fadeIn;
+  -webkit-animation: 0.5s fadeIn;
+  font-size: min(1.5vw, 2.5vh);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.end-screen h1 {
+  text-align: center;
+  font-size: min(2.5vw, 3.5vh);
+  font-weight: bold;
+}
+
+.end-screen button {
+  background-color: rgba(255, 255, 255, 0.829);
+  border: none;
+  padding: min(0.6vw, 1vh) min(2.2vw, 4vh);
+  margin: 0 auto;
+  color: rgb(3, 47, 19);
+  border-radius: min(0.5vw, 0.8vh);
+  -webkit-border-radius: min(0.5vw, 0.8vh);
+  -moz-border-radius: min(0.5vw, 0.8vh);
+  -ms-border-radius: min(0.5vw, 0.8vh);
+  -o-border-radius: min(0.5vw, 0.8vh);
+  cursor: pointer;
+  font-size: min(1.25vw, 2vh);
+}
+
+.end-screen button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.game-results {
+  display: flex;
+}
+
+.game-results p {
+  padding: min(0.9vw, 1.5vh);
+}

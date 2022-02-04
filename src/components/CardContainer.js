@@ -1,5 +1,6 @@
-import Draggable from "../Draggable";
+import Draggable from "./Draggable";
 import { v4 as uuidv4 } from "uuid";
+import "./CardContainer.css";
 
 const shouldItDrag = (cardColumn) => {
   let isCorrectOrder = true;
@@ -27,16 +28,21 @@ const CardContainer = ({ cardColumn, cardRow, colNum, colLength }) => {
         prevCol: colNum,
         prevRow: cardRow,
       }}
-      // id={`${colNum} ${cardRow}`}
       disabled={!shouldItDrag(cardColumn)}
     >
       <div className="card-container">
         <div
           className={`card card${cardColumn[0]} ${
-            colLength > 10 ? "squeezed" : ""
+            colLength <= 10
+              ? ""
+              : colLength <= 15
+              ? "squeezed"
+              : colLength <= 20
+              ? "extra-squeezed"
+              : "ultra-squeezed"
           }`}
         >
-          {cardColumn[0]}
+          {/* <img src={require(`../images/spades${cardColumn[0]}.svg`)} alt={cardColumn[0]}/> */}
         </div>
         <CardContainer
           cardColumn={cardColumn.slice(1)}

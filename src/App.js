@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { DndContext } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
-import Droppable from "./Droppable";
+import Droppable from "./components/Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
 import FinishedGame from "./components/FinishedGame";
 import EndScreen from "./components/EndScreen";
+import BottomBar from "./components/BottomBar";
 import useCardGenerator from "./hooks/useCardGenerator";
 import releaseMP3 from "./sounds/release.mp3";
 import pickupMP3 from "./sounds/pickup.mp3";
@@ -32,9 +33,6 @@ function App() {
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
-    topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-    hiddenCards[0] = [];
-    spareCards[0][0] = 1;
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
@@ -258,47 +256,17 @@ function App() {
           })}
         </div>
       </DndContext>
-      <footer>
-        <div className="completed-container">
-          {completed.map((completed, i) => (
-            <div
-              key={"completed" + i}
-              className="completed-card card13"
-              style={{ zIndex: `${10 - i}` }}
-            ></div>
-          ))}
-        </div>
-        <div
-          className={`info-container ${(showEnd || showFireworks) && "hide"}`}
-        >
-          <p>Score: {score}</p>
-          <button title="New Game" onClick={() => startNewGame()}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
-              <path
-                fillRule="evenodd"
-                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
-              />
-            </svg>
-          </button>
-          <p>Moves: {moves}</p>
-        </div>
-        <div onClick={() => addSpares()} className="spares-container">
-          {spareCards.map((spare, i) => (
-            <div
-              key={"spare" + i}
-              className="spare-card"
-              style={{ zIndex: `${10 - i}` }}
-            ></div>
-          ))}
-        </div>
-      </footer>
+      <BottomBar
+        completed={completed}
+        showEnd={showEnd}
+        showFireworks={showFireworks}
+        score={score}
+        startNewGame={startNewGame}
+        moves={moves}
+        addSpares={addSpares}
+        spareCards={spareCards}
+      />
+
       {showFireworks && (
         <FinishedGame
           setShowFireworks={setShowFireworks}

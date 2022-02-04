@@ -15,12 +15,14 @@ const Draggable = (props) => {
         zIndex: 100,
         position: "absolute",
         touchAction: "none",
+        width: "100%",
       }
     : undefined;
 
   return (
     <div
       ref={setNodeRef}
+      className="draggable"
       style={style}
       {...listeners}
       {...attributes}

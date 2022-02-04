@@ -1,0 +1,82 @@
+.card-container {
+  width: 100%;
+}
+
+.card {
+  cursor: pointer;
+  background-size: cover;
+  border-radius: min(1vw, 1vh);
+  -webkit-border-radius: min(1vw, 1vh);
+  -moz-border-radius: min(1vw, 1vh);
+  -ms-border-radius: min(1vw, 1vh);
+  -o-border-radius: min(1vw, 1vh);
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-top: 150%;
+  margin-bottom: max(-20vh, -120%);
+}
+
+.squeezed {
+  margin-bottom: max(-30vh, -125%);
+}
+
+.extra-squeezed {
+  margin-bottom: max(-35vh, -130%);
+}
+
+.ultra-squeezed {
+  margin-bottom: max(-40vh, -135%);
+}
+
+.card1 {
+  background-image: url(../images/spades1.svg);
+}
+
+.card2 {
+  background-image: url(../images/spades2.svg);
+}
+
+.card3 {
+  background-image: url(../images/spades3.svg);
+}
+
+.card4 {
+  background-image: url(../images/spades4.svg);
+}
+
+.card5 {
+  background-image: url(../images/spades5.svg);
+}
+
+.card6 {
+  background-image: url(../images/spades6.svg);
+}
+
+.card7 {
+  background-image: url(../images/spades7.svg);
+}
+
+.card8 {
+  background-image: url(../images/spades8.svg);
+}
+
+.card9 {
+  background-image: url(../images/spades9.svg);
+}
+
+.card10 {
+  background-image: url(../images/spades10.svg);
+}
+
+.card11 {
+  background-image: url(../images/spades11.svg);
+}
+
+.card12 {
+  background-image: url(../images/spades12.svg);
+}
+
+.card13 {
+  background-image: url(../images/spades13.svg);
+}
