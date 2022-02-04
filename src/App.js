@@ -200,10 +200,10 @@ function App() {
       }
     }
 
-    // If out of spares return 
+    // If out of spares return
     if (!spareCards.length) {
-      return
-    } 
+      return;
+    }
 
     sounds.deal.play();
 

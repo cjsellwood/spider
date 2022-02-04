@@ -32,6 +32,7 @@ footer {
   background-image: url(../images/back.svg);
   background-size: cover;
   cursor: pointer;
+  z-index: -1;
 }
 
 .completed-container {

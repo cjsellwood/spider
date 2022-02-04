@@ -28,6 +28,9 @@ const useCardGenerator = () => {
       }
       hiddenCards.push(inner);
     }
+    for (let i = 0; i < 4; i++) {
+      hiddenCards[i].push(cards.shift());
+    }
 
     // Set top cards
     const topCards = [];
@@ -49,7 +52,6 @@ const useCardGenerator = () => {
       hiddenCards,
       topCards,
       spareCards,
-      cards,
     };
   };
 
