@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/spider/static/css/main.0e446c6f.css",
-    "main.js": "/spider/static/js/main.ea915deb.js",
+    "main.css": "/spider/static/css/main.0542f903.css",
+    "main.js": "/spider/static/js/main.fb6ee86a.js",
     "static/media/spades13.svg": "/spider/static/media/spades13.81a8269332f6fd3781ab.svg",
     "static/media/spades12.svg": "/spider/static/media/spades12.e65b8dac8f927e3ba20b.svg",
     "static/media/spades11.svg": "/spider/static/media/spades11.0d63e3249ce8703ad71f.svg",
@@ -26,11 +26,11 @@
     "static/media/spades1.svg": "/spider/static/media/spades1.583dd3dafdfcf61fdc36.svg",
     "index.html": "/spider/index.html",
     "static/media/back.svg": "/spider/static/media/back.af8934251fed9f9a9c6d.svg",
-    "main.0e446c6f.css.map": "/spider/static/css/main.0e446c6f.css.map",
-    "main.ea915deb.js.map": "/spider/static/js/main.ea915deb.js.map"
+    "main.0542f903.css.map": "/spider/static/css/main.0542f903.css.map",
+    "main.fb6ee86a.js.map": "/spider/static/js/main.fb6ee86a.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e446c6f.css",
-    "static/js/main.ea915deb.js"
+    "static/css/main.0542f903.css",
+    "static/js/main.fb6ee86a.js"
   ]
 }
