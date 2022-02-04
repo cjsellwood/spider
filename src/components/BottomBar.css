@@ -13,7 +13,6 @@ footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  cursor: pointer;
   width: 89.81%;
   height: 100%;
   margin-left: -29.5%;
@@ -32,6 +31,7 @@ footer {
   padding-top: calc(150% / 5);
   background-image: url(../images/back.svg);
   background-size: cover;
+  cursor: pointer;
 }
 
 .completed-container {

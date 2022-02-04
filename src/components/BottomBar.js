@@ -43,10 +43,11 @@ const BottomBar = ({
           <p>Moves: {moves}</p>
         </div>
       </div>
-      <div onClick={() => addSpares()} className="spares-container">
+      <div className="spares-container">
         {spareCards.map((spare, i) => (
           <div
             key={"spare" + i}
+            onClick={() => addSpares()}
             className="spare-card"
             style={{ zIndex: `${10 - i}` }}
           ></div>

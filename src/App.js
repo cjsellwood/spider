@@ -200,8 +200,12 @@ function App() {
       }
     }
 
+    // If out of spares return 
+    if (!spareCards.length) {
+      return
+    } 
+
     sounds.deal.play();
-    // console.log(sounds.deal.duration);
 
     // setTimeout(() => {
     const newCards = duplicateNested(cards);
@@ -235,11 +239,6 @@ function App() {
     setScore(500);
     setMoves(0);
   };
-
-  // TODO
-  // Change card back
-  // Change favicon
-  // Try animations
 
   return (
     <div className="App">
