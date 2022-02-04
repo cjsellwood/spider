@@ -6,6 +6,7 @@ body {
     rgba(11, 145, 58, 1) 0%,
     rgba(6, 84, 34, 1) 87%
   );
+  overscroll-behavior: contain;
 }
 
 .App {
@@ -36,9 +37,9 @@ body {
 }
 
 .card-base {
-  border: 2px solid rgba(255, 255, 255, 0.418);
+  border: min(0.3vw, 0.5vh) solid rgba(255, 255, 255, 0.418);
   width: 100%;
-  margin-bottom: -153%;
+  margin-bottom: -158%;
   border-radius: min(1vw, 1vh);
   -webkit-border-radius: min(1vw, 1vh);
   -moz-border-radius: min(1vw, 1vh);

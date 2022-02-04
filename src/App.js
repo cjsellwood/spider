@@ -20,7 +20,7 @@ function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
-  const [completed, setCompleted] = useState([13, 13, 13, 13, 13, 13, 13]);
+  const [completed, setCompleted] = useState([]);
   const [showFireworks, setShowFireworks] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [score, setScore] = useState(500);
@@ -235,6 +235,11 @@ function App() {
     setScore(500);
     setMoves(0);
   };
+
+  // TODO
+  // Change card back
+  // Change favicon
+  // Try animations
 
   return (
     <div className="App">
