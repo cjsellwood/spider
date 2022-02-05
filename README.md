@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Spider
+
+A game of spider solitaire created in react with sound, animations and persistent statistics.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -13,6 +17,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+### `npm run deploy`
+
+Deploys site to github pages
 
 ### `npm test`
 
