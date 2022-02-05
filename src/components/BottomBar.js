@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import "./BottomBar.css";
 import { motion } from "framer-motion";
 
@@ -12,8 +12,21 @@ const BottomBar = ({
   addSpares,
   spareCards,
   kingAnimation,
+  setSparePosition,
 }) => {
   const ref = useRef();
+
+  // Get position of spare card to animate dealing from it
+  const spareRef = useCallback(
+    (node) => {
+      if (node !== null) {
+        setSparePosition({ left: node.offsetLeft, top: node.offsetTop });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setSparePosition, spareCards]
+  );
+
   return (
     <footer>
       <div className="completed-container" ref={ref}>
@@ -71,6 +84,7 @@ const BottomBar = ({
         {spareCards.map((spare, i) => (
           <div
             key={"spare" + i}
+            ref={i === 0 ? spareRef : null}
             onClick={() => addSpares()}
             className="spare-card"
             style={{ zIndex: `${10 - i}` }}

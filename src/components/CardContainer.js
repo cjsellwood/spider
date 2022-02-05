@@ -24,7 +24,12 @@ const CardContainer = ({
   colNum,
   colLength,
   animation,
+  sparePosition,
+  spares,
+  showDeal,
+  columnRef,
 }) => {
+  // eslint-disable-next-line no-unused-vars
   const [id, setId] = useState(uuidv4());
 
   if (!cardColumn[0]) {
@@ -33,11 +38,28 @@ const CardContainer = ({
 
   let animateX = 0;
   let animateY = 0;
+  let duration = 0;
+  let delay = 0;
+  // Animation for releasing card
   if (id === animation.id) {
-    console.log(animation, id);
-    console.log();
-    animateX = -animation.x;
-    animateY = -animation.y;
+    animateX = animation.x;
+    animateY = animation.y;
+    duration = 0.25;
+    delay = 0;
+  }
+
+  // Animation for dealing cards
+  if (!cardColumn[1] && columnRef.current && showDeal) {
+    animateX = sparePosition.left - columnRef.current.offsetParent.offsetLeft;
+    animateY =
+      sparePosition.top -
+      columnRef.current.offsetParent.offsetTop -
+      columnRef.current.offsetTop -
+      columnRef.current.offsetHeight +
+      columnRef.current.offsetWidth * 1.5 * 0.81;
+
+    duration = 0.5;
+    delay = (10 - colNum) * 0.08;
   }
 
   return (
@@ -47,14 +69,20 @@ const CardContainer = ({
         prevCol: colNum,
         prevRow: cardRow,
       }}
-      disabled={!shouldItDrag(cardColumn)}
+      disabled={!shouldItDrag(cardColumn) || showDeal}
     >
       <motion.div
         className="card-container"
-        initial={{ x: 0, y: 0 }}
-        animate={{ x: [-animateX, 0], y: [-animateY, 0] }}
-        transition={{ duration: 0.25 }}
-        style={id === animation.id ? { zIndex: "50", position: "relative"} : {}}
+        animate={{ x: [animateX, 0], y: [animateY, 0] }}
+        transition={{
+          duration: duration,
+          delay: delay,
+        }}
+        style={
+          id === animation.id || showDeal
+            ? { zIndex: "50", position: "relative" }
+            : {}
+        }
       >
         <div
           className={`card card${cardColumn[0]} ${
@@ -73,6 +101,10 @@ const CardContainer = ({
           colNum={colNum}
           colLength={colLength}
           animation={animation}
+          sparePosition={sparePosition}
+          spares={spares}
+          showDeal={showDeal}
+          columnRef={columnRef}
         ></CardContainer>
       </motion.div>
     </Draggable>

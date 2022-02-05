@@ -29,15 +29,27 @@ function App() {
   const [gamesWon, setGamesWon] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [highScoreDate, setHighScoreDate] = useState("");
+  const [animation, setAnimation] = useState({ x: 0, y: 0, id: "" });
+  const [kingAnimation, setKingAnimation] = useState({
+    x: 0,
+    y: 0,
+    cardWidth: 0,
+  });
+
+  const [sparePosition, setSparePosition] = useState({});
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
-    topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-    topCards[9] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
+
+    setShowDeal(true);
+
+    setTimeout(() => {
+      setShowDeal(false);
+    }, 1300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -153,13 +165,6 @@ function App() {
     sounds.pickup.play();
   };
 
-  const [animation, setAnimation] = useState({ x: 0, y: 0, id: "" });
-  const [kingAnimation, setKingAnimation] = useState({
-    x: 0,
-    y: 0,
-    cardWidth: 0,
-  });
-
   const handleDragEnd = (e) => {
     const { over } = e;
     if (over) {
@@ -230,6 +235,8 @@ function App() {
     }
   };
 
+  const [showDeal, setShowDeal] = useState(false);
+
   // Add a card to each column from spares deck
   const addSpares = () => {
     // If a column has no cards don't add spares
@@ -245,9 +252,19 @@ function App() {
       return;
     }
 
+    // If still in previous animation return
+    if (showDeal) {
+      return;
+    }
+
+    setShowDeal(true);
+
+    setTimeout(() => {
+      setShowDeal(false);
+    }, 1300);
+
     sounds.deal.play();
 
-    // setTimeout(() => {
     const newCards = duplicateNested(cards);
     const newSpares = duplicateNested(spareCards);
     for (let i = 0; i < newCards.length; i++) {
@@ -261,16 +278,22 @@ function App() {
 
     setSpareCards(newSpares.slice(1));
     setCards(newCards);
-    // }, 1150);
   };
 
   const startNewGame = () => {
+    // If still in previous animation return
+    if (showDeal) {
+      return;
+    }
+
     const { hiddenCards, topCards, spareCards } = generateCards();
     // Add to games played if game was not won
     if (!showEnd && moves > 10) {
       setGamesPlayed(gamesPlayed + 1);
       localStorage.setItem("played", gamesPlayed + 1);
     }
+
+    // Reset all state
     setShowEnd(false);
     setHiddenCards(hiddenCards);
     setCards(topCards);
@@ -278,6 +301,17 @@ function App() {
     setCompleted([]);
     setScore(500);
     setMoves(0);
+    setAnimation({ x: 0, y: 0, id: "" });
+    setKingAnimation({
+      x: 0,
+      y: 0,
+      cardWidth: 0,
+    });
+    setSparePosition({});
+    setShowDeal(true);
+    setTimeout(() => {
+      setShowDeal(false);
+    }, 1300);
   };
 
   return (
@@ -297,6 +331,8 @@ function App() {
                     column={column}
                     colNum={index}
                     animation={animation}
+                    sparePosition={sparePosition}
+                    showDeal={showDeal}
                   />
                 </Droppable>
               </div>
@@ -314,6 +350,7 @@ function App() {
         addSpares={addSpares}
         spareCards={spareCards}
         kingAnimation={kingAnimation}
+        setSparePosition={setSparePosition}
       />
 
       {showFireworks && (
