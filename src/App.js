@@ -33,6 +33,8 @@ function App() {
   const [generateCards] = useCardGenerator();
   useEffect(() => {
     const { hiddenCards, topCards, spareCards } = generateCards();
+    topCards[0] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+    topCards[9] = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     setHiddenCards(hiddenCards);
     setCards(topCards);
     setSpareCards(spareCards);
@@ -98,7 +100,7 @@ function App() {
   };
 
   // Check if there are any sets complete and remove them
-  const checkForSets = (cardCol) => {
+  const checkForSets = (cardCol, rect) => {
     let index = -1;
     for (let i = 0; i < cardCol.length; i++) {
       if (cardCol[i] === 13) {
@@ -120,6 +122,12 @@ function App() {
         gameWon();
       }
       setCompleted([...completed, 13]);
+
+      setKingAnimation({
+        x: rect.left + rect.width,
+        y: rect.top + rect.width * 1.5,
+        cardWidth: rect.width,
+      });
 
       return cardCol.slice(0, index);
     }
@@ -144,6 +152,13 @@ function App() {
   const handleDragStart = () => {
     sounds.pickup.play();
   };
+
+  const [animation, setAnimation] = useState({ x: 0, y: 0, id: "" });
+  const [kingAnimation, setKingAnimation] = useState({
+    x: 0,
+    y: 0,
+    cardWidth: 0,
+  });
 
   const handleDragEnd = (e) => {
     const { over } = e;
@@ -174,21 +189,44 @@ function App() {
         newCards[prevCol] = newCards[prevCol].slice(0, prevRow);
 
         // Check for completed sets and remove any found
-        newCards[receivingCol] = checkForSets(newCards[receivingCol]);
+        newCards[receivingCol] = checkForSets(
+          newCards[receivingCol],
+          e.over.rect
+        );
 
         // Check for empty column and flip hidden card
         const emptiedCards = checkForEmpty(newCards);
 
         setCards(emptiedCards);
+        setAnimation({
+          x: 0,
+          y: 0,
+          id: animation.id,
+        });
       } else if (prevCol !== receivingCol) {
         // If dropping on an illegal position and not starting position
         sounds.illegal.play();
+        setAnimation({
+          x: e.delta.x,
+          y: e.delta.y,
+          id: e.active.id,
+        });
       } else {
         // Plays on dropping on own position
         sounds.release.play();
+        setAnimation({
+          x: e.delta.x,
+          y: e.delta.y,
+          id: e.active.id,
+        });
       }
     } else {
       sounds.release.play();
+      setAnimation({
+        x: e.delta.x,
+        y: e.delta.y,
+        id: e.active.id,
+      });
     }
   };
 
@@ -255,7 +293,11 @@ function App() {
               <div key={"column" + index}>
                 <HiddenColumn hiddenCards={hiddenCards} index={index} />
                 <Droppable id={uuidv4()} data={{ receivingCol: index }}>
-                  <CardColumn column={column} colNum={index} />
+                  <CardColumn
+                    column={column}
+                    colNum={index}
+                    animation={animation}
+                  />
                 </Droppable>
               </div>
             );
@@ -271,6 +313,7 @@ function App() {
         moves={moves}
         addSpares={addSpares}
         spareCards={spareCards}
+        kingAnimation={kingAnimation}
       />
 
       {showFireworks && (

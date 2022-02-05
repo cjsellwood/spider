@@ -1,5 +1,6 @@
-import React from "react";
-import "./BottomBar.css"
+import React, { useRef } from "react";
+import "./BottomBar.css";
+import { motion } from "framer-motion";
 
 const BottomBar = ({
   completed,
@@ -10,17 +11,40 @@ const BottomBar = ({
   moves,
   addSpares,
   spareCards,
+  kingAnimation,
 }) => {
+  const ref = useRef();
   return (
     <footer>
-      <div className="completed-container">
-        {completed.map((completed, i) => (
-          <div
-            key={"completed" + i}
-            className="completed-card card13"
-            style={{ zIndex: `${i}` }}
-          ></div>
-        ))}
+      <div className="completed-container" ref={ref}>
+        {completed.map((card, i) => {
+          let xAnimate = 0;
+          let yAnimate = 0;
+          if (i === completed.length - 1 && ref.current) {
+            xAnimate =
+              -ref.current.offsetLeft -
+              ref.current.offsetWidth +
+              -i * 0.2 * kingAnimation.cardWidth +
+              kingAnimation.x;
+            yAnimate =
+              -ref.current.offsetTop -
+              ref.current.offsetHeight +
+              kingAnimation.y;
+          }
+          return (
+            <motion.div
+              key={"completed" + i}
+              className="completed-card card13"
+              style={{ zIndex: `${i}` }}
+              initial={{ x: 0, y: 0 }}
+              animate={{
+                x: [xAnimate, 0],
+                y: [yAnimate, 0],
+              }}
+              transition={{ duration: 0.5 }}
+            ></motion.div>
+          );
+        })}
       </div>
       <div className={`info-container ${(showEnd || showFireworks) && "hide"}`}>
         <div>

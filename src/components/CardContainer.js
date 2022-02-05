@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Draggable from "./Draggable";
 import { v4 as uuidv4 } from "uuid";
 import "./CardContainer.css";
+import { motion } from "framer-motion";
 
 const shouldItDrag = (cardColumn) => {
   let isCorrectOrder = true;
@@ -16,21 +18,44 @@ const shouldItDrag = (cardColumn) => {
   return isCorrectOrder;
 };
 
-const CardContainer = ({ cardColumn, cardRow, colNum, colLength }) => {
+const CardContainer = ({
+  cardColumn,
+  cardRow,
+  colNum,
+  colLength,
+  animation,
+}) => {
+  const [id, setId] = useState(uuidv4());
+
   if (!cardColumn[0]) {
     return null;
   }
 
+  let animateX = 0;
+  let animateY = 0;
+  if (id === animation.id) {
+    console.log(animation, id);
+    console.log();
+    animateX = -animation.x;
+    animateY = -animation.y;
+  }
+
   return (
     <Draggable
-      id={uuidv4()}
+      id={id}
       data={{
         prevCol: colNum,
         prevRow: cardRow,
       }}
       disabled={!shouldItDrag(cardColumn)}
     >
-      <div className="card-container">
+      <motion.div
+        className="card-container"
+        initial={{ x: 0, y: 0 }}
+        animate={{ x: [-animateX, 0], y: [-animateY, 0] }}
+        transition={{ duration: 0.25 }}
+        style={id === animation.id ? { zIndex: "50", position: "relative"} : {}}
+      >
         <div
           className={`card card${cardColumn[0]} ${
             colLength <= 10
@@ -41,16 +66,15 @@ const CardContainer = ({ cardColumn, cardRow, colNum, colLength }) => {
               ? "extra-squeezed"
               : "ultra-squeezed"
           }`}
-        >
-          {/* <img src={require(`../images/spades${cardColumn[0]}.svg`)} alt={cardColumn[0]}/> */}
-        </div>
+        ></div>
         <CardContainer
           cardColumn={cardColumn.slice(1)}
           cardRow={cardRow + 1}
           colNum={colNum}
           colLength={colLength}
+          animation={animation}
         ></CardContainer>
-      </div>
+      </motion.div>
     </Draggable>
   );
 };
