@@ -56,7 +56,6 @@ footer {
   height: 0;
   overflow: hidden;
   padding-top: calc(150% / 8);
-  background-image: url(../images/spades13.svg);
   background-size: cover;
 }
 

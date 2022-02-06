@@ -3,9 +3,9 @@ import Draggable from "./Draggable";
 import { v4 as uuidv4 } from "uuid";
 import "./CardContainer.css";
 import { motion } from "framer-motion";
+import getSuite from "../functions/getSuite";
 
 const shouldItDrag = (cardColumn) => {
-  console.log(cardColumn)
   let isCorrectOrder = true;
   const correctOrder = [];
   for (let i = Math.max(...cardColumn); i >= Math.min(...cardColumn); i--) {
@@ -62,18 +62,6 @@ const CardContainer = ({
     duration = 0.5;
     delay = (10 - colNum) * 0.08;
   }
-
-  const getSuite = (n) => {
-    if (n <= 13) {
-      return "spades";
-    } else if (n <= 26) {
-      return "hearts";
-    } else if (n <= 39) {
-      return "clubs";
-    } else {
-      return "diamonds";
-    }
-  };
 
   return (
     <Draggable

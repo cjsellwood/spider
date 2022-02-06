@@ -21,7 +21,7 @@ function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
-  const [completed, setCompleted] = useState([]);
+  const [completed, setCompleted] = useState([13, 26, 39, 52, 13, 26, 39]);
   const [showFireworks, setShowFireworks] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [score, setScore] = useState(500);
@@ -46,8 +46,10 @@ function App() {
       return;
     }
     const { hiddenCards, topCards, spareCards } = generateCards(suites);
-    topCards[0] = [52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41];
     setHiddenCards(hiddenCards);
+    for (let i = 10; i < 20; i++) {
+      topCards[i % 10] = [i + 1];
+    }
     setCards(topCards);
     setSpareCards(spareCards);
 
@@ -125,13 +127,18 @@ function App() {
 
   // Check if there are any sets complete and remove them
   const checkForSets = (cardCol, rect) => {
+    console.log(cardCol);
     let index = -1;
     for (let i = 0; i < cardCol.length; i++) {
-      if (cardCol[i] === 13) {
-        index = i;
-        for (let j = 13; j > 0; j--) {
-          if (cardCol[i + 13 - j] !== j) {
-            index = -1;
+      // Find any kings
+      for (let k = 1; k <= suites; k++) {
+        if (cardCol[i] === 13 * k) {
+          index = i;
+          for (let j = 13 * k; j >= k * 13 - 12; j--) {
+            // If not 13 consecutive numbers do not count set
+            if (cardCol[i + 13 * k - j] !== j) {
+              index = -1;
+            }
           }
         }
       }
@@ -145,7 +152,7 @@ function App() {
       if (completed.length + 1 === 8) {
         gameWon();
       }
-      setCompleted([...completed, 13]);
+      setCompleted([...completed, cardCol[index]]);
 
       setKingAnimation({
         x: rect.left + rect.width,
@@ -178,7 +185,6 @@ function App() {
   };
 
   const handleDragEnd = (e) => {
-    console.log(e);
     const { over } = e;
     if (over) {
       // Get data for the card receiving card and col
@@ -372,6 +378,7 @@ function App() {
         spareCards={spareCards}
         kingAnimation={kingAnimation}
         setSparePosition={setSparePosition}
+        suites={suites}
       />
 
       {showFireworks && (

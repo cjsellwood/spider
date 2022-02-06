@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from "react";
 import "./BottomBar.css";
 import { motion } from "framer-motion";
+import getSuite from "../functions/getSuite";
 
 const BottomBar = ({
   completed,
@@ -13,6 +14,7 @@ const BottomBar = ({
   spareCards,
   kingAnimation,
   setSparePosition,
+  suites,
 }) => {
   const ref = useRef();
 
@@ -47,7 +49,9 @@ const BottomBar = ({
           return (
             <motion.div
               key={"completed" + i}
-              className="completed-card card13"
+              className={`completed-card ${getSuite(card)}${
+                ((card - 1) % 13) + 1
+              }`}
               style={{ zIndex: `${i}` }}
               initial={{ x: 0, y: 0 }}
               animate={{
