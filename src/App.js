@@ -21,7 +21,7 @@ function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [cards, setCards] = useState([]);
   const [spareCards, setSpareCards] = useState([]);
-  const [completed, setCompleted] = useState([13, 26, 39, 52, 13, 26, 39]);
+  const [completed, setCompleted] = useState([]);
   const [showFireworks, setShowFireworks] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [score, setScore] = useState(500);
@@ -47,9 +47,7 @@ function App() {
     }
     const { hiddenCards, topCards, spareCards } = generateCards(suites);
     setHiddenCards(hiddenCards);
-    for (let i = 10; i < 20; i++) {
-      topCards[i % 10] = [i + 1];
-    }
+    topCards[0] = [12];
     setCards(topCards);
     setSpareCards(spareCards);
 
