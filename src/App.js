@@ -47,7 +47,8 @@ function App() {
     }
     const { hiddenCards, topCards, spareCards } = generateCards(suites);
     setHiddenCards(hiddenCards);
-    topCards[0] = [12];
+    topCards[5] = [12];
+    topCards[6] = [13];
     setCards(topCards);
     setSpareCards(spareCards);
 
