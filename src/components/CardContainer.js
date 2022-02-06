@@ -62,6 +62,18 @@ const CardContainer = ({
     delay = (10 - colNum) * 0.08;
   }
 
+  const getSuite = (n) => {
+    if (n <= 13) {
+      return "spades";
+    } else if (n <= 26) {
+      return "hearts";
+    } else if (n <= 39) {
+      return "clubs";
+    } else {
+      return "diamonds";
+    }
+  };
+
   return (
     <Draggable
       id={id}
@@ -85,7 +97,9 @@ const CardContainer = ({
         }
       >
         <div
-          className={`card card${cardColumn[0]} ${
+          className={`card ${getSuite(cardColumn[0])}${
+            ((cardColumn[0] - 1) % 13) + 1
+          } ${
             colLength <= 10
               ? ""
               : colLength <= 15

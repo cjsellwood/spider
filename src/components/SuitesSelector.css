@@ -1,0 +1,57 @@
+.suites-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  background: rgb(11, 145, 58);
+  background: radial-gradient(
+    circle,
+    rgba(11, 145, 58, 1) 0%,
+    rgba(6, 84, 34, 1) 87%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.suites-container h1 {
+  color: white;
+  text-align: center;
+  font-size: min(2vw, 3vh);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: min(2vw, 3vh);
+}
+
+.suites-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.suites-buttons button {
+  border: none;
+  padding: min(2vw, 3vh);
+  background-color: rgba(255, 255, 255, 0.904);
+  margin: min(2vw, 3vh);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: min(1vw, 1.5vh);
+  border-radius: min(0.5vw, 0.8vh);
+  -webkit-border-radius: min(0.5vw, 0.8vh);
+  -moz-border-radius: min(0.5vw, 0.8vh);
+  -ms-border-radius: min(0.5vw, 0.8vh);
+  -o-border-radius: min(0.5vw, 0.8vh);
+}
+
+.suites-buttons button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.suites-buttons img {
+  width: min(3vw, 4vh);
+  height: min(3vw, 4vh);
+}

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { DndContext } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
-import Droppable from "./components/Droppable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import Droppable from "./components/Droppable";
 import CardColumn from "./components/CardColumn";
 import HiddenColumn from "./components/HiddenColumn";
 import FinishedGame from "./components/FinishedGame";
 import EndScreen from "./components/EndScreen";
 import BottomBar from "./components/BottomBar";
+import SuitesSelector from "./components/SuitesSelector";
 import useCardGenerator from "./hooks/useCardGenerator";
 import releaseMP3 from "./sounds/release.mp3";
 import pickupMP3 from "./sounds/pickup.mp3";
@@ -37,21 +38,26 @@ function App() {
   });
 
   const [sparePosition, setSparePosition] = useState({});
+  const [suites, setSuites] = useState(0);
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
-    const { hiddenCards, topCards, spareCards } = generateCards();
-    setHiddenCards(hiddenCards);
-    setCards(topCards);
-    setSpareCards(spareCards);
+    if (suites) {
+      const { hiddenCards, topCards, spareCards } = generateCards(suites);
+      setHiddenCards(hiddenCards);
+      setCards(topCards);
+      setSpareCards(spareCards);
 
-    setShowDeal(true);
+      console.log(spareCards)
 
-    setTimeout(() => {
-      setShowDeal(false);
-    }, 1300);
+      setShowDeal(true);
+
+      setTimeout(() => {
+        setShowDeal(false);
+      }, 1300);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [suites]);
 
   const [sounds, setSounds] = useState({});
 
@@ -286,12 +292,13 @@ function App() {
       return;
     }
 
-    const { hiddenCards, topCards, spareCards } = generateCards();
     // Add to games played if game was not won
     if (!showEnd && moves > 10) {
       setGamesPlayed(gamesPlayed + 1);
       localStorage.setItem("played", gamesPlayed + 1);
     }
+
+    const { hiddenCards, topCards, spareCards } = generateCards(suites);
 
     // Reset all state
     setShowEnd(false);
@@ -316,6 +323,7 @@ function App() {
 
   return (
     <div className="App">
+      {!suites && <SuitesSelector setSuites={setSuites} />}
       <DndContext
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart}

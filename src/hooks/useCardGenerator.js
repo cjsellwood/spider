@@ -9,10 +9,10 @@ const shuffleArray = (array) => {
 };
 
 const useCardGenerator = () => {
-  const generateCards = () => {
+  const generateCards = (suites) => {
     const cards = [];
-    for (let i = 0; i < 8; i++) {
-      for (let j = 1; j <= 13; j++) {
+    for (let i = 0; i < 8 / suites; i++) {
+      for (let j = 1; j <= 13 * suites; j++) {
         cards.push(j);
       }
     }
@@ -46,6 +46,8 @@ const useCardGenerator = () => {
       }
       spareCards.push(inner);
     }
+
+    console.log(topCards)
 
     return {
       hiddenCards,
