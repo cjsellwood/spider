@@ -47,8 +47,6 @@ const useCardGenerator = () => {
       spareCards.push(inner);
     }
 
-    console.log(topCards)
-
     return {
       hiddenCards,
       topCards,

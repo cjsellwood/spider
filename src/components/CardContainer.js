@@ -5,6 +5,7 @@ import "./CardContainer.css";
 import { motion } from "framer-motion";
 
 const shouldItDrag = (cardColumn) => {
+  console.log(cardColumn)
   let isCorrectOrder = true;
   const correctOrder = [];
   for (let i = Math.max(...cardColumn); i >= Math.min(...cardColumn); i--) {

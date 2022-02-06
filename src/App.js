@@ -42,20 +42,23 @@ function App() {
 
   const [generateCards] = useCardGenerator();
   useEffect(() => {
-    if (suites) {
-      const { hiddenCards, topCards, spareCards } = generateCards(suites);
-      setHiddenCards(hiddenCards);
-      setCards(topCards);
-      setSpareCards(spareCards);
-
-      console.log(spareCards)
-
-      setShowDeal(true);
-
-      setTimeout(() => {
-        setShowDeal(false);
-      }, 1300);
+    if (!suites) {
+      return;
     }
+    const { hiddenCards, topCards, spareCards } = generateCards(suites);
+    topCards[0] = [52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41];
+    setHiddenCards(hiddenCards);
+    setCards(topCards);
+    setSpareCards(spareCards);
+
+    setShowDeal(true);
+
+    sounds.deal.play();
+
+    setTimeout(() => {
+      setShowDeal(false);
+    }, 1300);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suites]);
 
@@ -74,23 +77,26 @@ function App() {
 
   // Load any stored statistics
   useEffect(() => {
-    const storedPlayed = localStorage.getItem("played");
+    if (!suites) {
+      return;
+    }
+    const storedPlayed = localStorage.getItem(`played${suites}`);
     if (storedPlayed) {
       setGamesPlayed(Number(storedPlayed));
     }
-    const storedWon = localStorage.getItem("won");
+    const storedWon = localStorage.getItem(`won${suites}`);
     if (storedWon) {
       setGamesWon(Number(storedWon));
     }
-    const storedHighScore = localStorage.getItem("highScore");
+    const storedHighScore = localStorage.getItem(`highScore${suites}`);
     if (storedHighScore) {
       setHighScore(Number(storedHighScore));
     }
-    const storedHighScoreDate = localStorage.getItem("highScoreDate");
+    const storedHighScoreDate = localStorage.getItem(`highScoreDate1${suites}`);
     if (storedHighScoreDate) {
       setHighScoreDate(storedHighScoreDate);
     }
-  }, []);
+  }, [suites]);
 
   const gameWon = () => {
     setShowFireworks(true);
@@ -98,18 +104,18 @@ function App() {
     // Set high score if greater than stored score
     if (score + 100 > highScore) {
       setHighScore(score + 100);
-      localStorage.setItem("highScore", score + 100);
+      localStorage.setItem(`highScore${suites}`, score + 100);
       localStorage.setItem(
-        "highScoreDate",
+        `highScoreDate${suites}`,
         new Date(Date.now()).toLocaleDateString()
       );
       setHighScoreDate(new Date(Date.now()).toLocaleDateString());
     }
 
     setGamesPlayed(gamesPlayed + 1);
-    localStorage.setItem("played", gamesPlayed + 1);
+    localStorage.setItem(`played${suites}`, gamesPlayed + 1);
     setGamesWon(gamesWon + 1);
-    localStorage.setItem("won", gamesWon + 1);
+    localStorage.setItem(`won${suites}`, gamesWon + 1);
   };
 
   // Duplicate nested arrays immutably
@@ -172,6 +178,7 @@ function App() {
   };
 
   const handleDragEnd = (e) => {
+    console.log(e);
     const { over } = e;
     if (over) {
       // Get data for the card receiving card and col
@@ -183,7 +190,10 @@ function App() {
       const addCard = cards[prevCol][prevRow];
 
       // Only drop if receiving card is one higher or empty
-      if (receivingCard - 1 === addCard || !receivingCard) {
+      if (
+        ((receivingCard - 1) % 13) + 1 - 1 === ((addCard - 1) % 13) + 1 ||
+        !receivingCard
+      ) {
         sounds.release.play();
         setScore(score - 1);
         setMoves(moves + 1);
@@ -295,7 +305,7 @@ function App() {
     // Add to games played if game was not won
     if (!showEnd && moves > 10) {
       setGamesPlayed(gamesPlayed + 1);
-      localStorage.setItem("played", gamesPlayed + 1);
+      localStorage.setItem(`played${suites}`, gamesPlayed + 1);
     }
 
     const { hiddenCards, topCards, spareCards } = generateCards(suites);
@@ -316,6 +326,9 @@ function App() {
     });
     setSparePosition({});
     setShowDeal(true);
+
+    sounds.deal.play();
+
     setTimeout(() => {
       setShowDeal(false);
     }, 1300);
