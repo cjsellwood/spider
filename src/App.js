@@ -17,6 +17,7 @@ import illegalMP3 from "./sounds/illegal.mp3";
 import setCompleteMP3 from "./sounds/setComplete.mp3";
 import dealMP3 from "./sounds/deal.mp3";
 import restartMP3 from "./sounds/restart.mp3";
+import duplicateNested from "./functions/duplicateNested";
 
 function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
@@ -37,7 +38,6 @@ function App() {
     y: 0,
     cardWidth: 0,
   });
-
   const [sparePosition, setSparePosition] = useState({});
   const [suites, setSuites] = useState(0);
 
@@ -53,28 +53,7 @@ function App() {
 
     sounds.restart.play();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [suites]);
-
-  const [sounds, setSounds] = useState({});
-
-  // Load sounds
-  useEffect(() => {
-    setSounds({
-      pickup: new Audio(pickupMP3),
-      release: new Audio(releaseMP3),
-      illegal: new Audio(illegalMP3),
-      setComplete: new Audio(setCompleteMP3),
-      deal: new Audio(dealMP3),
-      restart: new Audio(restartMP3)
-    });
-  }, []);
-
-  // Load any stored statistics
-  useEffect(() => {
-    if (!suites) {
-      return;
-    }
+    // Load any stored statistics
     const storedPlayed = localStorage.getItem(`played${suites}`);
     if (storedPlayed) {
       setGamesPlayed(Number(storedPlayed));
@@ -91,7 +70,23 @@ function App() {
     if (storedHighScoreDate) {
       setHighScoreDate(storedHighScoreDate);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suites]);
+
+  const [sounds, setSounds] = useState({});
+
+  // Load sounds
+  useEffect(() => {
+    setSounds({
+      pickup: new Audio(pickupMP3),
+      release: new Audio(releaseMP3),
+      illegal: new Audio(illegalMP3),
+      setComplete: new Audio(setCompleteMP3),
+      deal: new Audio(dealMP3),
+      restart: new Audio(restartMP3),
+    });
+  }, []);
 
   const gameWon = () => {
     setShowFireworks(true);
@@ -111,11 +106,6 @@ function App() {
     localStorage.setItem(`played${suites}`, gamesPlayed + 1);
     setGamesWon(gamesWon + 1);
     localStorage.setItem(`won${suites}`, gamesWon + 1);
-  };
-
-  // Duplicate nested arrays immutably
-  const duplicateNested = (array) => {
-    return array.map((col) => [...col]);
   };
 
   // Check if there are any sets complete and remove them
@@ -323,7 +313,7 @@ function App() {
       cardWidth: 0,
     });
     setSparePosition({});
-    sounds.restart.play()
+    sounds.restart.play();
   };
 
   return (
