@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/spider/static/css/main.5d218883.css",
+    "main.css": "/spider/static/css/main.39cad4ae.css",
     "main.js": "/spider/static/js/main.5351a7d4.js",
     "static/media/clubs13.svg": "/spider/static/media/clubs13.75ed1d6152b33a9f85ed.svg",
     "static/media/spades13.svg": "/spider/static/media/spades13.6b4d9291ff406bb47faa.svg",
     "static/media/diamonds13.svg": "/spider/static/media/diamonds13.5696ed54398335efc8b1.svg",
     "static/media/hearts13.svg": "/spider/static/media/hearts13.b6d00854fb1fe110f49a.svg",
-    "static/media/diamonds12.svg": "/spider/static/media/diamonds12.436e6b35099783730d06.svg",
-    "static/media/spades12.svg": "/spider/static/media/spades12.61d7257cccb8a2933361.svg",
+    "static/media/diamonds12.svg": "/spider/static/media/diamonds12.3d27fbe17af4cf83f91f.svg",
+    "static/media/spades12.svg": "/spider/static/media/spades12.8396379d426c116e4b7d.svg",
     "static/media/diamonds11.svg": "/spider/static/media/diamonds11.7c810d442af061121013.svg",
-    "static/media/hearts12.svg": "/spider/static/media/hearts12.4fafaf99c28d78ebcd0d.svg",
-    "static/media/clubs12.svg": "/spider/static/media/clubs12.305141b5b029b4b78359.svg",
+    "static/media/hearts12.svg": "/spider/static/media/hearts12.7f664fef5ee23a334313.svg",
+    "static/media/clubs12.svg": "/spider/static/media/clubs12.1c13368a1d86a90e0b54.svg",
     "static/media/spades11.svg": "/spider/static/media/spades11.d412a8fc9fe656903a9b.svg",
     "service-worker.js": "/spider/service-worker.js",
     "static/media/hearts11.svg": "/spider/static/media/hearts11.027cfcbd26b80eb178f2.svg",
@@ -71,11 +71,11 @@
     "index.html": "/spider/index.html",
     "static/media/back.svg": "/spider/static/media/back.5ad91784d729b644e991.svg",
     "static/media/restart.svg": "/spider/static/media/restart.b1a6d1295bd4bf5269e3b1bd9910b0ce.svg",
-    "main.5d218883.css.map": "/spider/static/css/main.5d218883.css.map",
+    "main.39cad4ae.css.map": "/spider/static/css/main.39cad4ae.css.map",
     "main.5351a7d4.js.map": "/spider/static/js/main.5351a7d4.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d218883.css",
+    "static/css/main.39cad4ae.css",
     "static/js/main.5351a7d4.js"
   ]
 }
