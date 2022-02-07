@@ -16,6 +16,7 @@ import pickupMP3 from "./sounds/pickup.mp3";
 import illegalMP3 from "./sounds/illegal.mp3";
 import setCompleteMP3 from "./sounds/setComplete.mp3";
 import dealMP3 from "./sounds/deal.mp3";
+import restartMP3 from "./sounds/restart.mp3";
 
 function App() {
   const [hiddenCards, setHiddenCards] = useState([]);
@@ -47,18 +48,10 @@ function App() {
     }
     const { hiddenCards, topCards, spareCards } = generateCards(suites);
     setHiddenCards(hiddenCards);
-    topCards[5] = [12];
-    topCards[6] = [13];
     setCards(topCards);
     setSpareCards(spareCards);
 
-    setShowDeal(true);
-
-    sounds.deal.play();
-
-    setTimeout(() => {
-      setShowDeal(false);
-    }, 1300);
+    sounds.restart.play();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suites]);
@@ -73,6 +66,7 @@ function App() {
       illegal: new Audio(illegalMP3),
       setComplete: new Audio(setCompleteMP3),
       deal: new Audio(dealMP3),
+      restart: new Audio(restartMP3)
     });
   }, []);
 
@@ -126,7 +120,6 @@ function App() {
 
   // Check if there are any sets complete and remove them
   const checkForSets = (cardCol, rect) => {
-    console.log(cardCol);
     let index = -1;
     for (let i = 0; i < cardCol.length; i++) {
       // Find any kings
@@ -330,13 +323,7 @@ function App() {
       cardWidth: 0,
     });
     setSparePosition({});
-    setShowDeal(true);
-
-    sounds.deal.play();
-
-    setTimeout(() => {
-      setShowDeal(false);
-    }, 1300);
+    sounds.restart.play()
   };
 
   return (

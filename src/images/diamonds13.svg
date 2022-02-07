@@ -25,9 +25,9 @@
     <g fill="#f55">
       <text x="15" y="585" style="font-size: 5rem; font-weight: bold; font-family: Arial">K</text>
       <text x="347" y="980" rotate="180" style="font-size: 5rem; font-weight: bold; font-family: Arial">K</text>
-      <path transform="translate(15, 0)"
+      <path transform="translate(15, -10)"
         d="m30 602.36s3 5 6.5 8.5 8.5 6.5 8.5 6.5-5 3-8.5 6.5-6.5 8.5-6.5 8.5-3-5-6.5-8.5-8.5-6.5-8.5-6.5 5-3 8.5-6.5 6.5-8.5 6.5-8.5" />
-      <path transform="translate(15, 0)"
+      <path transform="translate(-15, 10)"
         d="m330 932.36s3 5 6.5 8.5 8.5 6.5 8.5 6.5-5 3-8.5 6.5-6.5 8.5-6.5 8.5-3-5-6.5-8.5-8.5-6.5-8.5-6.5 5-3 8.5-6.5 6.5-8.5 6.5-8.5" />
     </g>
     <g transform="matrix(.99826 0 0 .99826 5.114 1.361)">

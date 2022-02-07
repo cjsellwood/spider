@@ -10,10 +10,10 @@
     <rect x=".5" y="512.86" width="359" height="539" rx="29.944" fill="#fff" stroke="#000" />
     <g fill="#f55">
       <text x="22" y="585" style="font-size: 5rem; font-weight: bold; font-family: Arial">J</text>
-      <text x="337" y="975" rotate="180" style="font-size: 5rem; font-weight: bold; font-family: Arial">J</text>
-      <path transform="translate(15, 0)"
+      <text x="337" y="979" rotate="180" style="font-size: 5rem; font-weight: bold; font-family: Arial">J</text>
+      <path transform="translate(15, -10)"
         d="m30 609.86s0.682-4.182 2-5.5 3.637-2 5.5-2 4.182 0.682 5.5 2 2 3.637 2 5.5-1 4.5-2 5.5-2 1.5-3 2.5-1.5 1-2.5 2l-2.5 2.5c-1 1-2.5 3-3.5 5s-1.5 5-1.5 5-0.5-3-1.5-5-2.5-4-3.5-5l-2.5-2.5c-1-1-1.5-1-2.5-2s-2-1.5-3-2.5-2-3.637-2-5.5 0.682-4.182 2-5.5 3.637-2 5.5-2 4.182 0.682 5.5 2 2 5.5 2 5.5" />
-      <path transform="translate(-15, 0)"
+      <path transform="translate(-15, 10)"
         d="m330 954.86s0.682 4.182 2 5.5 3.637 2 5.5 2 4.182-0.682 5.5-2 2-3.637 2-5.5-1-4.5-2-5.5-2-1.5-3-2.5-1.5-1-2.5-2l-2.5-2.5c-1-1-2.5-3-3.5-5s-1.5-5-1.5-5-0.5 3-1.5 5-2.5 4-3.5 5l-2.5 2.5c-1 1-1.5 1-2.5 2s-2 1.5-3 2.5-2 3.637-2 5.5 0.682 4.182 2 5.5 3.637 2 5.5 2 4.182-0.682 5.5-2 2-5.5 2-5.5" />
     </g>
     <path id="ec"
